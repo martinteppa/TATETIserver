@@ -40,4 +40,28 @@ devolverá un token.
 }
 ```
 Si el nnombre de usuario ya existe dará un 400 bad request:
+{
+"message": "Usuario ya existente"
+}
 
+### Login
+```bash 
+http://127.0.0.1:8000/tateti/login
+method: POST
+body:
+{
+    "username": "asdasdadaca",
+    "password": "asdasd",
+  
+}
+```
+devolverá un nuevo token si no tiene
+```bash 
+202: Acepted
+body:
+{
+  "token": "OcdQVHMsKmNbg1pdQEMW4Dgj5v80g2" 
+}
+```
+
+Si no existe el usuario, dara un 400, y si la contraseña es incorrecta, un 401
