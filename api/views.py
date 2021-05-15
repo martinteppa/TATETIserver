@@ -9,20 +9,20 @@ from rest_framework.decorators import api_view
 from .tateti import encriptarTablero, desencriptarTateti, resolveTateti
 
 
-class Register(APIView):
-    serializer_class = RegisterSerializer
-
-    def post(self, request):
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            user = Persona.objects.create(password=password, username=username)
-            dic = serializer.data
-            dic["token"] = user.token
-            return Response(dic, status=status.HTTP_200_OK)
-        else:
-            return Response({"message": "Usuario ya existente"})
+@api_view(["POST"])
+def register(request):
+    username = request.data["username"]
+    password = request.data["password"]
+    user = Persona.objects.filter(username=username).first()
+    if not user and password != "":
+        user = Persona.objects.create(password=password, username=username)
+        dic = {}
+        dic["username"] = username
+        dic["token"] = user.token
+        return Response(dic, status=status.HTTP_200_OK)
+    else:
+        return Response({"message": "Usuario ya existente"},
+                        status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["POST"])
