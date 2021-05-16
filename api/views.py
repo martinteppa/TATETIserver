@@ -49,20 +49,24 @@ def logout(request):
 
     user = Persona.objects.get(token=request.data["token"])
     print(user)
-    if user:
+    if user.validateUsername(self, request.data["username"]):
         user.token = ""
         user.save()
-    return Response({"message": "sesion cerrada"}, status=status.HTTP_200_OK)
+        return Response({"message": "sesion cerrada"},
+                        status=status.HTTP_200_OK)
+    else:
+        return Response({"message": "data invalida"},
+                        status=status.HTTP_403_FORBIDDEN)
 
 
 class Partidas(generics.ListAPIView):
-    queryset = Partida.objects.filter(finished=False)  #.filter(jugadorO=None)
+    queryset = Partida.objects.filter(finished=False).filter(jugadorO=None)
 
     def get(self, request):
 
         queryset = self.get_queryset()
         serializer = PartidasSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
@@ -70,7 +74,8 @@ def createPartida(request):
     user = Persona.objects.get(username=request.data["username"])
     if user:
         if user.enPartida:
-            return Response({"message": "Estas En Una Partida"})
+            return Response({"message": "Estas En Una Partida"},
+                            status=status.HTTP_401_UNAUTHORIZED)
 
         if user.validateToken(request.data["token"]):
             jugador = JugadorX.objects.create(jugador=user)
@@ -85,7 +90,8 @@ def createPartida(request):
             return Response({"message": "Token incorrecto"},
                             status=status.HTTP_401_UNAUTHORIZED)
     else:
-        return Response({"message": "Usuario incorrecto"})
+        return Response({"message": "Usuario incorrecto"},
+                        status=status.HTTP_400_BAD_REQUEST)
 
 
 class unirsePartida(generics.RetrieveAPIView):
@@ -95,8 +101,12 @@ class unirsePartida(generics.RetrieveAPIView):
         #codigo
         codigo = kwargs.get('codigo')
         partida = Partida.objects.get(codigo=codigo)
-
-        return Response({"partida": partida.codigo})
+        if partida:
+            return Response(PartidasSerializer(partida).data,
+                            status=status.HTTP_200_OK)
+        else:
+            return Response({"message": "Bad Request"},
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, **kwargs):
         #codigo username token
@@ -104,16 +114,21 @@ class unirsePartida(generics.RetrieveAPIView):
         if user2 and user2.validateToken(request.data["token"]):
             if user2.enPartida:
                 return Response(
-                    {"message": "Usted esta en una partida already"})
+                    {"message": "Usted esta en una partida already"},
+                    status=status.HTTP_401_UNAUTHORIZED)
             else:
                 codigo = kwargs.get('codigo')
                 partida = Partida.objects.get(codigo=codigo)
-                jugador2 = JugadorO.objects.create(jugador=user2)
-                user2.enPartida = True
-                user2.save()
-                partida.jugadorO = jugador2
-                partida.save()
-                return Response(PartidasSerializer(partida).data)
+                if partida.jugadorO and partida.finished:
+                    return Response({"message": "Partida Completa already"},
+                                    status=status.HTTP_400_BAD_REQUEST)
+                else:
+                    jugador2 = JugadorO.objects.create(jugador=user2)
+                    user2.enPartida = True
+                    user2.save()
+                    partida.jugadorO = jugador2
+                    partida.save()
+                    return Response(PartidasSerializer(partida).data)
         else:
             return Response({"message": "Usted no ha sido autenticado"})
 
@@ -168,4 +183,5 @@ class unirsePartida(generics.RetrieveAPIView):
                     {"message": "esta partida ya habia finalizado"},
                     status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({"message": "Usted no ha sido autenticado"})
+            return Response({"message": "Usted no ha sido autenticado"},
+                            status=status.HTTP_401_UNAUTHORIZED)

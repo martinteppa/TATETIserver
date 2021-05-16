@@ -28,9 +28,9 @@ class Persona(models.Model):
     token = models.CharField(default=generate_token, max_length=30)
     enPartida = models.BooleanField(default=False)
 
-    def validateUsername(username):
-        user = Persona.objects.filter(username=username).first()
-        if user:
+    def validateUsername(self, username):
+
+        if self.username == username:
             return False
         else:
             return True
