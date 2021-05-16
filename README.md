@@ -1,24 +1,32 @@
 # Server Tateti con Django Rest Framework
 
-Lamentablemente he tenido que realizar este practico Gabriel con Django, primero porque tuve problema con un metodo de instalacion de ruby, ya que hay varios. Al final usé un sudo apt-get install ruby pero lo terminé haciendo con Django, ya que estoy mas familiarizado con python y asi acortar un poco mas el tiempo.  
+Lamentablemente he tenido que realizar este practico Gabriel con Django, primero porque tuve problema con un metodo de instalacion de ruby, ya que hay varios. Al final usé un sudo apt-get install ruby pero lo terminé haciendo con Django, ya que estoy mas familiarizado con python y Django(no en su version rest) y asi acortar un poco mas el tiempo de codeo. 
 
 ## Instalacion entorno
 
-Hay que tener instalado Python3 3.8.5, o Python 2.7.18, Django, Sqlite3 para python , pip3, y DjangoRestFramework. Particularmente yo usé python3 y pip3
-```bash 
-pip3 install djangorestframework
-```
-
+Hay que tener instalado Python3 3.8.5, Django, Sqlite3 para python(ya viene instalado con el modulo de python) , pip3, y DjangoRestFramework: 
 ```bash 
 pip3 install django
 ```
 
+```bash 
+pip3 install djangorestframework
+```
+
+
+Se puede crear un entorno virtual con venv e instalar la version de python utilizada. No he testeado si puede funcionar con una version anterior de python, pero creo que pueeeeede funcionar, ya que me he mantenido en lo simple de python en el codigo.
+
 ## Migraciones:
+dentro de la carpeta donde se encuentre manage.py
 ```bash 
 python3 manage.py makemigrations
 ```
 ```bash 
 python3 manage.py migrate
+```
+para arrancar el server:
+```bash 
+python3 manage.py runserver
 ```
 
 ## EndPoints
