@@ -86,7 +86,7 @@ method: GET
 ```
 Esto nos da un listado de todas las partidas que no han sido finalizadas y que no se les ha asignado un segundo usuario
 
-### Crear partidas  
+### Crear partida  
 ```bash 
 http://127.0.0.1:8000/tateti/crearpartida/
 method: POST
@@ -99,5 +99,9 @@ body:
 ```
 Crea una partida si: *El usuario no está en una partida actualmente, *Si su token enviado es valido. En caso de que no cumpla alguna de las dos, se responde con un 400 o 401
 
+### Partida 
+Este endpoint tiene tres metodos distintos: GET, POST, PUT. Dependiendo de lo que se quiera hacer
+
+#### GET
 
 
