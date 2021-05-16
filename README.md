@@ -30,6 +30,8 @@ python3 manage.py runserver
 ```
 
 ## EndPoints
+Dentro de la carpeta api, el archivo views.py contiene los metodos de los endpoints.
+
 
 ### Register
 Hay que registrar dos usuarios para jugar
