@@ -36,7 +36,7 @@ devolverá un token.
 ```bash 
 {
 "token": "K6V7D93QSCK0QvNU0U7etwBlcorrCO",
-"username": "asdasd"
+"username": "exampleUsername"
 }
 ```
 Si el nnombre de usuario ya existe dará un 400 bad request:
@@ -50,8 +50,8 @@ http://127.0.0.1:8000/tateti/login
 method: POST
 body:
 {
-    "username": "asdasdadaca",
-    "password": "asdasd",
+    "username": "exampleUsername",
+    "password": "examplePassword",
   
 }
 ```
@@ -72,7 +72,7 @@ http://127.0.0.1:8000/tateti/logout
 method: POST
 body:
 {
-    "username": "asdasdadaca",
+    "username": "exampleUsername",
     "token": "exampleToken",
   
 }
@@ -92,7 +92,7 @@ http://127.0.0.1:8000/tateti/crearpartida/
 method: POST
 body:
 {
-    "username": "asdasdadaca",
+    "username": "exampleUsername",
     "token": "exampleToken",
   
 }
@@ -100,8 +100,31 @@ body:
 Crea una partida si: *El usuario no está en una partida actualmente, *Si su token enviado es valido. En caso de que no cumpla alguna de las dos, se responde con un 400 o 401
 
 ### Partida 
+```bash 
+http://127.0.0.1:8000/tateti/<codigoPartida>/
+```
 Este endpoint tiene tres metodos distintos: GET, POST, PUT. Dependiendo de lo que se quiera hacer
 
 #### GET
 
+En este metodo se retorna la data de la partida especificada en la url
 
+#### POST
+```bash 
+{
+    "username": "exampleUsername",
+    "token": "exampleToken",
+  
+}
+```
+El objetivo es asignar el segundo jugador a una partida ya creada. Se valida si: *el usuario no debe estar en una partida, *debe ser autenticado, *que en la partida no esté el segundo jugador , *y que la partida no esté finalizada.
+
+#### PUT
+```bash 
+{
+    "username": "exampleUsername",
+    "token": "exampleToken",
+    "lastMovement", INTEGER
+}
+```
+Se establece el movimiento del jugador: el que crea la partida es el primero en empezar siempre. Se valida de quien es el turno, si están los jugadores asignados a dicha partida, si estan autenticados. al final de los tres metodos lo que se devuelve siempre es la info de la partida.
