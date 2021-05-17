@@ -153,9 +153,13 @@ class unirsePartida(generics.RetrieveAPIView):
 
                 jugador.lastMovement = request.data["lastMovement"]
                 jugador.save()
-                nuevoTablero = desencriptarTateti(partida.tablero,
-                                                  jugador.lastMovement,
-                                                  jugador.tipoMovimiento)
+                try:
+                    nuevoTablero = desencriptarTateti(partida.tablero,
+                                                      jugador.lastMovement,
+                                                      jugador.tipoMovimiento)
+                except:
+                    return Response({"message": "cuadrado ya utilizado"},
+                                    status=status.HTTP_400_BAD_REQUEST)
                 if resolveTateti(nuevoTablero, jugador.tipoMovimiento):
                     partida.message = "Gano el jugador " + jugador.tipoMovimiento
                     partida.finished = True

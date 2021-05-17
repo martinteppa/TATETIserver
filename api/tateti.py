@@ -6,8 +6,12 @@ from .serializers import PartidasSerializer
 
 def desencriptarTateti(tablero, ultimoMovimiento, tipoMovimiento):
     tablero = tablero[1:-1].split(",")
-    tablero[ultimoMovimiento - 1] = tipoMovimiento
-    return tablero
+    if tablero[ultimoMovimiento - 1] == "s":
+
+        tablero[ultimoMovimiento - 1] = tipoMovimiento
+        return tablero
+    else:
+        raise "nope"
 
 
 def resolveTateti(tablero, tipoMovimiento):
