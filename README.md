@@ -142,5 +142,5 @@ Cuando se crea una partida al inicio, lo que se crea es un array con nueve eleme
 ```bash 
 [s,s,s,s,s,s,s,s,s]
 ```
-A medida que se van realizando puts, se cambian esos valores por X o por O. Tambien se va alternando el booleano "turno", y si termina la partida, el booleano "finished" pasa a true
+Este array hay que leerlo en el tateti de izquiera a derecha, de arriba a abajo. A medida que se van realizando puts, se cambian esos valores por X o por O. Tambien se va alternando el booleano "turno", y si termina la partida, el booleano "finished" pasa a true
 
