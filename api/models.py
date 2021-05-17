@@ -71,3 +71,4 @@ class Partida(models.Model):
                                  default=None)
     jugadorO = models.ForeignKey(JugadorO, on_delete=models.CASCADE, null=True)
     tablero = models.CharField(default="[s,s,s,s,s,s,s,s,s]", max_length=50)
+    cantidad = models.IntegerField(default=0)

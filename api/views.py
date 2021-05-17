@@ -160,8 +160,13 @@ class unirsePartida(generics.RetrieveAPIView):
                 except:
                     return Response({"message": "cuadrado ya utilizado"},
                                     status=status.HTTP_400_BAD_REQUEST)
-                if resolveTateti(nuevoTablero, jugador.tipoMovimiento):
-                    partida.message = "Gano el jugador " + jugador.tipoMovimiento
+                if resolveTateti(
+                        nuevoTablero,
+                        jugador.tipoMovimiento) or partida.cantidad == 9:
+                    if partida.cantidad == 9:
+                        partida.message = "Empataron "
+                    else:
+                        partida.message = "Gano el jugador " + jugador.tipoMovimiento
                     partida.finished = True
                     user1 = Persona.objects.get(
                         username=partida.jugadorX.jugador.username)
@@ -175,10 +180,8 @@ class unirsePartida(generics.RetrieveAPIView):
                     partida.message = "Turno del otro jugador "
                 nuevoTablero = encriptarTablero(nuevoTablero)
                 partida.tablero = nuevoTablero
-                if partida.turno:
-                    partida.turno = False
-                else:
-                    partida.turno = True
+                partida.cantidad += 1
+                partida.turno = not partida.turno
                 partida.save()
                 return Response(PartidasSerializer(partida).data)
 
