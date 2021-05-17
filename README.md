@@ -138,3 +138,9 @@ El objetivo es asignar el segundo jugador a una partida ya creada. Se valida si:
 }
 ```
 Se establece el movimiento del jugador: el que crea la partida es el primero en empezar siempre. Se valida de quien es el turno, si están los jugadores asignados a dicha partida, si estan autenticados. al final de los tres metodos lo que se devuelve siempre es la info de la partida.
+Cuando se crea una partida al inicio, lo que se crea es un array con nueve elementos, con valores "s" indicando sin valor.
+```bash 
+[s,s,s,s,s,s,s,s,s]
+```
+A medida que se van realizando puts, se cambian esos valores por X o por O. Tambien se va alternando el booleano "turno", y si termina la partida, el booleano "finished" pasa a true
+
