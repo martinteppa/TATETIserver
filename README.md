@@ -12,7 +12,10 @@ pip3 install django
 ```bash 
 pip3 install djangorestframework
 ```
-
+Tambien hay que instalar la aplicacion que permite la coneccion CORS:
+```bash 
+pip3 install django-cors-headers
+```
 
 Se puede crear un entorno virtual con venv e instalar la version de python utilizada. No he testeado si puede funcionar con una version anterior de python, pero creo que pueeeeede funcionar, ya que me he mantenido en lo simple de python en el codigo.
 
@@ -39,21 +42,26 @@ Hay que registrar dos usuarios para jugar
 ```bash 
 http://127.0.0.1:8000/tateti/register/
 method: POST
-body: {"username": "exampleUsername", "password":"examplePassword"}
+body: 
+{
+    "username": "exampleUsername", 
+    "password":"examplePassword"
+}
 ```
 devolverá un token. 
 
 ```bash 
 {
-"token": "K6V7D93QSCK0QvNU0U7etwBlcorrCO",
-"username": "exampleUsername"
+    "token": "K6V7D93QSCK0QvNU0U7etwBlcorrCO",
+    "username": "exampleUsername"
 }
 ```
 Si el nnombre de usuario ya existe dará un 400 bad request:
+```bash 
 {
-"message": "Usuario ya existente"
+    "message": "Usuario ya existente"
 }
-
+```
 ### Login
 ```bash 
 http://127.0.0.1:8000/tateti/login/
@@ -62,7 +70,6 @@ body:
 {
     "username": "exampleUsername",
     "password": "examplePassword",
-  
 }
 ```
 devolverá un nuevo token si no tiene
@@ -70,7 +77,7 @@ devolverá un nuevo token si no tiene
 202: Acepted
 body:
 {
-  "token": "OcdQVHMsKmNbg1pdQEMW4Dgj5v80g2" 
+    "token": "OcdQVHMsKmNbg1pdQEMW4Dgj5v80g2" 
 }
 ```
 
@@ -83,8 +90,7 @@ method: POST
 body:
 {
     "username": "exampleUsername",
-    "token": "exampleToken",
-  
+    "token": "exampleToken" 
 }
 ```
 Esto eliminará el token del usuario. En caso de tener algun dato invalido, devolverá un 403 forbiden
@@ -103,8 +109,7 @@ method: POST
 body:
 {
     "username": "exampleUsername",
-    "token": "exampleToken",
-  
+    "token": "exampleToken"
 }
 ```
 Crea una partida si: *El usuario no está en una partida actualmente, *Si su token enviado es valido. En caso de que no cumpla alguna de las dos, se responde con un 400 o 401
@@ -123,8 +128,7 @@ En este metodo se retorna la data de la partida especificada en la url
 ```bash 
 {
     "username": "exampleUsername",
-    "token": "exampleToken",
-  
+    "token": "exampleToken"
 }
 ```
 El objetivo es asignar el segundo jugador a una partida ya creada. Se valida si: *el usuario no debe estar en una partida, *debe ser autenticado, *que en la partida no esté el segundo jugador , *y que la partida no esté finalizada.
