@@ -37,7 +37,7 @@ Dentro de la carpeta api, el archivo views.py contiene los metodos de los endpoi
 Hay que registrar dos usuarios para jugar
 
 ```bash 
-http://127.0.0.1:8000/tateti/register
+http://127.0.0.1:8000/tateti/register/
 method: POST
 body: {"username": "exampleUsername", "password":"examplePassword"}
 ```
@@ -56,7 +56,7 @@ Si el nnombre de usuario ya existe dará un 400 bad request:
 
 ### Login
 ```bash 
-http://127.0.0.1:8000/tateti/login
+http://127.0.0.1:8000/tateti/login/
 method: POST
 body:
 {
@@ -78,7 +78,7 @@ Si no existe el usuario, dara un 400, y si la contraseña es incorrecta, un 401
 
 ### Logout
 ```bash 
-http://127.0.0.1:8000/tateti/logout
+http://127.0.0.1:8000/tateti/logout/
 method: POST
 body:
 {
