@@ -24,7 +24,7 @@ SECRET_KEY = '1t%u*f=mqgw+#^kt#u-wfgfmd-+ogs!swowodhjcd#s7v*5rm2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -113,6 +113,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_L10N = True
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 USE_TZ = True
 
