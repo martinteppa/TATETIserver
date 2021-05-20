@@ -48,7 +48,7 @@ def login(request):
 def logout(request):
 
     user = Persona.objects.get(token=request.data["token"])
-     
+
     if user.validateUsername(username=request.data["username"]):
         user.token = ""
         user.save()
@@ -144,8 +144,8 @@ class unirsePartida(generics.RetrieveAPIView):
                 if user == partida.jugadorX.jugador and partida.turno:
                     jugador = JugadorX.objects.get(id=partida.jugadorX.id)
 
-                elif user == partida.jugadorO.jugador and not partida.turno:
-                    jugador = JugadorO.objects.get(id=partida.jugadorX.id)
+                elif user == partida.jugadorO.jugador and partida.turno == False:
+                    jugador = JugadorO.objects.get(id=partida.jugadorO.id)
                 else:
 
                     return Response({"message": "No es su turno, espere"},
