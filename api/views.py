@@ -48,8 +48,8 @@ def login(request):
 def logout(request):
 
     user = Persona.objects.get(token=request.data["token"])
-    print(user)
-    if user.validateUsername(self, request.data["username"]):
+     
+    if user.validateUsername(username=request.data["username"]):
         user.token = ""
         user.save()
         return Response({"message": "sesion cerrada"},

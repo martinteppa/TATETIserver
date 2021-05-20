@@ -31,9 +31,9 @@ class Persona(models.Model):
     def validateUsername(self, username):
 
         if self.username == username:
-            return False
-        else:
             return True
+        else:
+            return False
 
     def validatePassword(self, password):
 
