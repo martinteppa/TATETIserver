@@ -110,7 +110,9 @@ class unirsePartida(generics.RetrieveAPIView):
 
     def post(self, request, **kwargs):
         #codigo username token
+
         user2 = Persona.objects.get(username=request.data["username"])
+
         if user2 and user2.validateToken(request.data["token"]):
             if user2.enPartida:
                 return Response(
