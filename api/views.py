@@ -162,8 +162,8 @@ class unirsePartida(generics.RetrieveAPIView):
                                     status=status.HTTP_400_BAD_REQUEST)
                 if resolveTateti(
                         nuevoTablero,
-                        jugador.tipoMovimiento) or partida.cantidad == 9:
-                    if partida.cantidad == 9:
+                        jugador.tipoMovimiento) or partida.cantidad == 8:
+                    if partida.cantidad == 8:
                         partida.message = "Empataron "
                     else:
                         partida.message = "Gano el jugador " + jugador.tipoMovimiento
@@ -187,7 +187,10 @@ class unirsePartida(generics.RetrieveAPIView):
 
             else:
                 return Response(
-                    {"message": "esta partida ya habia finalizado"},
+                    {
+                        "message":
+                        "esta partida ya habia finalizado / o no tiene su segundo jugador"
+                    },
                     status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({"message": "Usted no ha sido autenticado"},
