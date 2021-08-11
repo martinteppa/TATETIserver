@@ -1,7 +1,7 @@
 # Server Tateti con Django Rest Framework
 
 Lamentablemente he tenido que realizar este practico Gabriel con Django, primero porque tuve problema con un metodo de instalacion de ruby, ya que hay varios. Al final usé un sudo apt-get install ruby pero lo terminé haciendo con Django, ya que estoy mas familiarizado con python(en su version rest) y asi acortar un poco mas el tiempo de codeo. 
-Otro problema que tuve fue que no supe como usar el sistema de autenticacion a la hora de debuggear, es por eso que en vez de pasar los tokens por el header, lo hice a traves del body. 
+Tambien tuve que pasar el token de autenticacion a traves del body y no del header. La proxima vez lo haré seteando cookies
 
 
 ## Instalacion entorno
